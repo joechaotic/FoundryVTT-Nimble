@@ -84,7 +84,8 @@ class NimbleTemplateLayer extends foundry.canvas.layers.TemplateLayer {
 				const { document, position } = preview;
 				this.#deactivatePreviewListeners(initialLayer);
 
-				document.updateSource(super.getSnappedPoint(position)); // TODO: Make this better
+				const snapped = super.getSnappedPoint(position) ?? { x: 0, y: 0 };
+				document.updateSource({ x: snapped.x, y: snapped.y });
 				canvas.scene?.createEmbeddedDocuments('MeasuredTemplate', [document.toObject()]);
 			},
 
